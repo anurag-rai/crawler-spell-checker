@@ -1,12 +1,39 @@
 // By default, Chrome injects content scripts after the DOM is complete.
 
+console.log("Injection content script");
+
+var port = chrome.runtime.connect({name: "fromcontent"});
+
+console.log("Port: ", port);
+
+port.postMessage({joke: "Knock knock"});
+
+port.onMessage.addListener(function(msg) {
+	
+	console.log(" ]] content.js : Msg: ", msg);
+	// if ( msg.action == 'views' ) {
+	// 	console.log("views: ", msg.views);
+	// } else {
+	// port.postMessage({action: "Add", key: "key", value: "value"});
+// }
+	// port.postMessage({action: "Add"});
+ //  if (msg.question == "Who's there?") {
+ //    port.postMessage({answer: "Madame"});
+ //  } else if (msg.question == "Madame who?") {
+ //    port.postMessage({answer: "Madame... Bovary"});
+ //    console.log("PORT ESTABLISHED");
+	// }
+});
+
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
     if( request.message === "clicked_browser_action" ) {
+    	console.log("TRIGGERED");
       startCrawlAndSpellCheck();
     }
   }
 );
+
 
 var masterLinks = {};
 var wrongWords = {};
@@ -76,7 +103,10 @@ function populateError(data) {
 	for ( var i = 0; i < numberOfKeys; i++ ) {
 		console.log("Key: ", keys[i]);
 		wrongWords[keys[i]] = data['corrections'][keys[i]][0];
+		// addToTable(keys[i], data['corrections'][keys[i]][0]);
+		port.postMessage({action: "Add", key: keys[i], value: data['corrections'][keys[i]][0]});
 		console.log("Wrong words: ", wrongWords);
+
 	}
 }
 
@@ -144,6 +174,10 @@ function createQueriesFromWords(words) {
 	queries.push(currentQuery);
 	return queries;
 }
+
+// function flushTable() {
+
+// }
 
 function startCrawlAndSpellCheck(event) {
 	// console.log(">>> TRIGGERED: ");

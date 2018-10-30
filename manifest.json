@@ -20,5 +20,8 @@
   		],
   		"js": ["jquery-3.3.1.slim.min.js", "content.js"]
   	}],
+  	"background": {
+  "scripts": ["background.js"]
+},
   	"manifest_version": 2
   }
