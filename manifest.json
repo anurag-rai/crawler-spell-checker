@@ -1,0 +1,24 @@
+  {
+  	"name": "Spelling checking crawler",
+  	"version": "1.0",
+  	"description": "Spell checks on the page and 2 levels deep",
+  	"icons": {
+  		"16": "drink_water16.png",
+  		"32": "drink_water32.png"
+  	},
+  	"browser_action": {
+  		"default_title": "Drink Water Event",
+  		"default_popup": "popup.html",
+  		"default_icon": {
+  			"16": "drink_water16.png",
+  			"32": "drink_water32.png"
+  		}
+  	},
+  	"content_scripts": [{
+  		"matches": [
+  			"<all_urls>"
+  		],
+  		"js": ["jquery-3.3.1.slim.min.js", "content.js"]
+  	}],
+  	"manifest_version": 2
+  }
