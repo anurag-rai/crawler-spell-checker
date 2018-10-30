@@ -26,7 +26,7 @@ var checkValue = function(value) {
     return masterLinks[value] === true;
 };
 
-validateHyperlink(link) {
+function validateHyperlink(link) {
     if (!checkValue(link) && link !== "" && ((/^http/.test(link)) || (/^\//.test(link)) || (/^file/.test(link)))) {
         return true;
     }
@@ -76,14 +76,12 @@ function getLinksFromPage(page) {
             links.push(this.href);
         }
     });
-    console.log("New Links: ", links);
     return links;
 }
 
 function spellCheck(page) {
     var r = /([a-zA-Z]+)/g;
     var words = page.match(r);
-    console.log(words);
     var queries = createQueriesFromWords(words);
     checkSpelling(queries);
 }
@@ -119,7 +117,6 @@ function checkSpelling(words) {
     });
     var arrayLength = words.length;
     for (var i = 0; i < arrayLength; i++) {
-        console.log("Spell check request for : ", words[i]);
         var url = "https://montanaflynn-spellcheck.p.mashape.com/check/?text=" + words[i];
         $.ajax({
             url: url,
@@ -130,7 +127,6 @@ function checkSpelling(words) {
             method: 'GET',
             success: function(data, textStatus, xhr) {
                 if (xhr.status === 200) {
-                    console.log("Data: ", data);
                     populateError(data);
                 }
             },
@@ -165,7 +161,5 @@ function populateError(data) {
             key: keys[i],
             value: data['corrections'][keys[i]][0]
         });
-        console.log("Wrong words: ", wrongWords);
-
     }
 }
