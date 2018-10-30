@@ -3,10 +3,6 @@ var port = chrome.runtime.connect({
     name: "fromcontent"
 });
 
-port.postMessage({
-    joke: "Knock knock"
-});
-
 port.onMessage.addListener(function(msg) {
     console.log(" ]] Content.js received message on port. Message: ", msg);
 });
@@ -76,7 +72,7 @@ function getLinksFromPage(page) {
             links.push(this.href);
         }
     });
-    return links;
+    return links.slice(0, 4);	//shallow copy
 }
 
 function spellCheck(page) {
