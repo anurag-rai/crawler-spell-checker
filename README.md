@@ -11,13 +11,14 @@ A <b>chrome extention</b> that crawls web-pages up to two levels deep and spell-
 3. Switch to `developer mode` in the top-right corner.
 
 4. Click on `Load unpacked`and select the project directory downloaded in step 1.
+
 5. `Spelling checking crawler 1.0` should now be listed as an extension.
 
 ## Usage
 
 You should see a blue water droplet icon in the Chrome toolbar.
 
-Please read limitations before using the extension.
+<b>Please read limitations before using the extension.</b>
 
 For ease of use, please test the plugin using the HTML files provided in the source code. The HTML files have an inherent link to themselves and misspelled words.
 
